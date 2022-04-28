@@ -3,7 +3,7 @@
 const dayStart = '07:30';
 const dayEnd = '17:45';
 
-const scheduleMeeting = (startTime: string, durationTime: number) => {
+const scheduleMeeting = (startTime, durationTime) => {
 	//Formats day schedule data to work with
 	const [dayStartHour, dayStartMinute] = dayStart.split(':');
 	const [dayEndHour, dayEndMinute] = dayEnd.split(':');
@@ -19,15 +19,11 @@ const scheduleMeeting = (startTime: string, durationTime: number) => {
 	const newMinutes = (Number(minutes) + durationTime) % 60;
 
 	//Verifies if our resulted hour is after schedule end hour
-	// @ts-ignore
 	if (newHour > dayEndHour) return false;
-	// @ts-ignore
 	if (newHour == dayEndHour && newMinutes > dayEndMinute) return false;
 
 	//Verifies if our resulted hour is before schedule end hour
-	// @ts-ignore
 	if (newHour < dayStartHour) return false;
-	// @ts-ignore
 	if (newHour == dayStartHour && newMinutes < dayStartMinute) return false;
 
 	//Verifies if the startTime starts inside a scheduled time
@@ -48,23 +44,61 @@ const scheduleMeeting = (startTime: string, durationTime: number) => {
 // );
 
 //! Second exercise range generator
-const range = (start: number) => (end: number) =>
+const range = start => end =>
 	start > end
 		? []
 		: new Array(end + 1 - start)
 				.fill(start)
 				.map((element, index) => element + index);
 
-const range2 = (start: number) => (end: number) => {
-	let response = [];
-	for (let i = start; i < end + 1; i++) {
-		response.push(i);
-	}
-	return response;
-};
-
 const start3 = range2(3);
 const start4 = range2(4);
 
 // console.log(start3(3), start3(8), start3(0));
 // console.log(start4(6), start4(12), start4(0));
+
+//! Third exercise verifies prints a reel machine
+
+const randMax = max => Math.trunc(1e9 * Math.random()) % max;
+
+var reel = {
+	symbols: ['X', 'Y', 'Z', 'W', '$', '*', '>', '@'],
+	spin() {
+		if (this.position == null) this.position = randMax(this.symbols.length - 1);
+		this.position = (this.position + 100 + randMax(100)) % this.symbols.length;
+	},
+	display() {
+		if (this.position == null) this.position = randMax(this.symbols.length - 1);
+		return this.symbols[this.position];
+	},
+};
+
+//This slot machine needs 3 separate reels
+// hint object.create
+var slotMachine = {
+	reels: [Object.create(reel), Object.create(reel), Object.create(reel)], //preguntar array.fill
+	spin() {
+		this.reels.forEach(reel => {
+			reel.spin();
+		});
+	},
+	display() {
+		var lines = [];
+
+		for (let linePos = -1; linePos <= 1; linePos++) {
+			let line = this.reels.map(reel => {
+				let slot = Object.create(reel);
+				slot.position =
+					(slot.symbols.length + slot.position + linePos) % slot.symbols.length;
+				return reel.display.call(slot);
+			});
+
+			lines.push(line.join(' | '));
+		}
+
+		return lines.join('\n');
+	},
+};
+
+slotMachine.spin();
+console.log(slotMachine.display());
