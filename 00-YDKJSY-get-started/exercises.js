@@ -73,7 +73,7 @@ var reel = {
 	},
 };
 
-//This slot machine needs 3 separate reels
+//! This slot machine needs 3 separate reels
 // hint object.create
 var slotMachine = {
 	reels: [Object.create(reel), Object.create(reel), Object.create(reel)], //preguntar array.fill
