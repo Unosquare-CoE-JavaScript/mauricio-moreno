@@ -1,13 +1,18 @@
+// simple function
 const add = ([x, y]) => x + y;
 
+// A function that receives undefined number of parameters and sums every number in these parameters
 const addMultiple = (...numbers) =>
 	numbers.reduce((previous, current) => previous + current);
 
+// A simple curry function
 const toPair =
 	f =>
 	([x, y]) =>
 		f([x, y]);
 
+// A curry function that receives undefined number of parameters and pases it to a function
+// That also receives an undefined number of parameters
 const multipleCurry =
 	f =>
 	(...args) =>
