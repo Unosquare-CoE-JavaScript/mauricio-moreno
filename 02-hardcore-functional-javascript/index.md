@@ -6,9 +6,12 @@ multiple arguments into a sequence of functions that each takes a single argumen
 ```js
 const add = ([x, y]) => x + y;
 
+// simple function that receives an undefined number of parameters and sum its value
 const addMultiple = (...numbers) =>
 	numbers.reduce((previous, current) => previous + current);
 
+// simple curry that receives a function after you can pass the values
+// of the parameters you want to pass
 const curry =
 	def =>
 	([x, y]) =>
@@ -16,6 +19,7 @@ const curry =
 
 const unCurry = f => (x, y) => f(x)(y);
 
+// A curry function that passes an undefined number of parameters to another function
 const multipleCurry =
 	def =>
 	(...args) =>
@@ -31,6 +35,8 @@ console.log(result2); // 15
 You can use currying to create templates to create another functions
 
 ```js
+// As you see you can reuse the functions in another contexts
+// not only use the isOdd final function in this example
 const curry = def => x => y => def(x, y);
 
 const module = curry((x, y) => y % x);
@@ -45,10 +51,13 @@ console.log(result); // false
 # Currying Example & argumeent
 
 ```ts
+// an implementation of the usage of the module
 const module = curry((x, y) => y % x);
 
 const isOdd = modulo(2);
 
+// As you see in the curry implementation the order matters with the types you can see that
+// the first parameter receives a function if you dont pass a function you'll break the program
 const filter = curry((def: (element: number) => boolean, xs: Array<number>) =>
 	xs.filter(def),
 );
@@ -86,9 +95,11 @@ const replace = curry((regex: RegExp, replacement: string, str: string) =>
 	str.replace(regex, replacement),
 );
 
+// The first time you only use 2/3 of the parameters used but because we use curry from ramda}
+// the code still works and waits us to add the third parameter to work
 const replaceVowels = replace(/[AEIOU]/gi, '!');
 
-// Ramda allows you to pass al the arguments in different callings to the function
+// Here its called the first parameter
 const result = replaceVowels('Hey I have words');
 
 console.log(result);
@@ -106,6 +117,8 @@ const curriedAddFourNumbers = curry(addFourNumbers);
 const f = curriedAddFourNumbers(1, 2);
 const g = f(3);
 g(4); //=> 10
+
+// as you see the function will run after receives all parameters
 ```
 
 > > You can also learn about partial application
@@ -116,10 +129,13 @@ g(4); //=> 10
 // First Exercises
 const { curry } = require('ramda');
 
+// First we create a function that only split strings
 const split = curry((delimiter, string) => string.split(delimiter));
 
+// Second we define in which case it will split the string in this case in each word
 const words = split(' ');
 
+// After we can use the final word function to split strings and take its words
 console.log(words('Jingle bells batman smells')); // => ['Jingle','bells','batman','smells']
 // You can also use filter from ramda
 
@@ -173,6 +189,7 @@ To do this you can see this example
 ```js
 import { curry } from 'ramda';
 
+// These are simple functions
 const add = (x, y) => x + y;
 
 const toUpper = string => string.toUpperCase();
@@ -184,7 +201,12 @@ const first = iterable => iterable[0];
 // you can create your function or use ramda function
 // const compose = (def, fn) => x => def(fn(x))
 
+// You can create complex functions that are a chain of functions and its returned value
+// For example in this case the first function is passed it is executed and its value is passed to the
+//uper function
 const loudFirst = compose(toUpper, first);
+// after you can create another function that continues the flow described before and its returned value
+// is passed to the function concat
 const shout = compose(concat('!'), loudFirst);
 
 console.log(shout('tears')); // => 'T!'
@@ -202,6 +224,7 @@ const doStuff = str =>
 		.filter(element => element.length > 3)
 		.join('');
 
+// same as the previous example you can see the order of the functions is reverted
 const doStuff = _.compose(
 	join(''),
 	_.filter(x => x.length > 3),
@@ -221,11 +244,13 @@ const isLastInStock = cars => {
 	return _.prop('in_stock', reversedCars);
 };
 
+// first we get the last element, and get the value in stock
 const isLastInStock = _.compose(_.prop('in_stock'), _.last);
 
 // use _.compose(), _.prop() and _head() to retrieve the name
 // of the first car
 
+// first we get the fiqrst element in head and afther we retrieve the name value
 const nameOfFirstCar = _.compose(_prop('name'), _.head);
 
 // Use the helper function _average to refactor averageDollarValue
@@ -238,9 +263,10 @@ const averageDollarValue = cars => {
 	return _average(dollar_values);
 };
 
+// first we get the dollar value for the input afther pass the result of the map to the function average
 const averageDollarValue = _.compose(
 	_average,
-	_.map(element => element.dolar_value, cars),
+	_.map(element => element.dolar_value),
 );
 
 // Write a function: sanitizeNames() using compose that returns a list
@@ -249,6 +275,8 @@ const averageDollarValue = _.compose(
 
 const _underscore = _.replace(/\W+/g, '-'); // <- Leave this alone
 
+// first take the value of name the result is passed to the underscore function and after we
+// pass the value to the _.toLower Function
 const sanitizeNames = _.compose(
 	_.map(_.toLower),
 	_.map(_undescore),
@@ -311,6 +339,10 @@ and lastly return it.
 For example we can reFactorize this function with a functor
 
 ```js
+// This functor will envolve the value passed into an object, you can mutate the data
+// in a dotchain sequence, but the function will not return the value of the data
+// instead will return the object of the functor, you need to use the return function
+// in this implementation to return the data
 const Functor = value => ({
 	map: fn => Functor(fn(value)),
 	inspect: () => {
@@ -327,6 +359,7 @@ const nextCharForNumberString_ = str => {
 	return String.fromCharCode(nextNumber);
 };
 
+// This will be rewrited in this way
 const nextCharForNumberString = string =>
 	Functor(string)
 		.map(string => string.trim())
@@ -348,10 +381,11 @@ const halfTheFirstLargerNumber_ = iterable => {
 	return `The answer is ${answer}`;
 };
 
+// This can be rewritted in this way
 const halfTheFirstLargerNumber = iterable =>
 	Functor(iterable)
 		.map(element => element.filter(subelement => subelement >= 20))
-		.map(element => first(element) / 2)
+		.map(element => first(element) / 2) // each returned value in a map function will be the next value taken
 		.map(element => `The answer is ${element}`)
 		.return();
 ```
@@ -386,15 +420,17 @@ const applyDiscount = (price, discount) => {
 	return cents - cents * savings;
 };
 
+// At the end of this function you'll need two values the values of cents and the values of savings
 const applyDiscount = (price, discount) =>
-	Functor(price)
+	Functor(price) // Lets first get the value of cents
 		.map(element => moneyToFloat(element))
-		.map(cents =>
+		.map(cents => // here are the value of cents now we need the value of the savings
 			Functor(discount)
-				.map(element => percentToFloat(element))
-				.map(savings => cents - cents * savings)
+				.map(element => percentToFloat(element)) // Here we get the value of the savings
+				.map(savings => cents - cents * savings) // Now we return the interaction of the searched values
 				.return(),
-		);
+		)  // This can not work if you dont return a functor instead you return a value
+		.return();
 ```
 
 # Chaining functors
@@ -420,7 +456,9 @@ const applyDiscount = (price, discount) =>
 		.chain(cents =>
 			Functor(discount)
 				.map(element => percentToFloat(element))
-				.map(savings => cents - cents * savings),
+				.map(savings => cents - cents * savings)
+				// You dont need to return the value of the functor the functor will be unwrapped
+				// because we are using chain function not map
 		)
 		.return();
 ```
@@ -444,6 +482,9 @@ const RightFunctor = value => ({
 });
 
 // This functor is called when an error happens and the value is not available
+// after calling the left functor all the next functions will not mutate the value passed to the left functor
+// and the left functor will return a different function in the fold method, this can be used to control
+// the flow of the data or more commonly to report errors
 const LeftFunctor = value => ({
 	map: fn => LeftFunctor(value), // This will skip all the chained maps
 	inspect: () => {
@@ -520,8 +561,11 @@ const LeftFunctor = value => ({
 	fold: (fn, def) => fn(value),
 });
 
+// Here if a  nullish value is passed it will pass the flow of the data to a left functor
 const fromNullable = x => (x != null ? Rightfunctor(x) : LeftFunctor());
 
+//Here is happening something similar if an error happens the data received will be passed
+// to a left functor
 const tryCatch = fn => {
 	try {
 		return RightFunctor(fn());
@@ -542,6 +586,10 @@ const getPort_ = () => {
 	}
 };
 
+// First we geth the value of a fs function, and afther we catch the data
+// if there is a success the data will flow normally along the pipes
+// but if there was an error the left functor will be called and the data will be sended
+// to the first fold method which in this case will return a default value of 8080
 const getPort = () =>
 	tryCatch(() => fs.readFileSync('config.json'))
 		.map(contents => JSON.parse(contents))
@@ -589,6 +637,8 @@ const readFileSync = path => tryCatch(() => fs.readFileSync(path));
 
 const parseJSON = contents => tryCatch(() => JSON.parse(contents));
 
+// You need to be cautious when implements a functor function because it would not return a value
+//instead another functor, in that cases you'll need to use a chain function
 const getPort = () =>
 	readFileSync('config.json')
 		.chain(contents => parseJSON(contents)) // in map returns a functor, so you need to use chain
@@ -647,6 +697,9 @@ const street_ = user => {
 	return address ? address.street : 'no street';
 };
 
+// first we get the address of the parameter
+// second verify if it is null
+// after we get the street of the data and return the value
 const street = ({ address }) =>
 	fromNullable(address)
 		.map(data => data.street)
@@ -666,10 +719,11 @@ const streetName_ = ({ address }) => {
 	} else return 'no street';
 };
 
+// First we get the address
 const streetName = ({ address }) =>
-	fromNullable(address)
-		.chain(data => fromNullable(data.street))
-		.chain(data => fromNullable(data.name))
+	fromNullable(address) // verifies if it is nullable
+		.chain(data => fromNullable(data.street)) //verifies if street exists
+		.chain(data => fromNullable(data.name)) // verifies if name exits
 		.fold(
 			() => 'error',
 			data => data,
@@ -690,9 +744,9 @@ const parseDbUrl_ = config => {
 };
 
 const parseDbUrl = config =>
-	RightFunctor(config)
-		.chain(data => tryCatch(JSON.parse(data)))
-		.chain(data => data.url.match(DB_REGEX))
+	RightFunctor(config) 
+		.chain(data => tryCatch(JSON.parse(data))) // tries to parse the data if doesnt work throw error
+		.chain(data => data.url.match(DB_REGEX)) // verifies if match with a regex
 		.fold(
 			error => error,
 			data => data,
@@ -711,9 +765,9 @@ const startApp_ = config => {
 
 const startApp = config =>
 	RightFunctor(config)
-		.map(data => parseDbUrl(data))
-		.chain(data => fromNullable(data))
-		.map(([_, user, password, db]) => `starting ${db}, ${user}, ${password}`)
+		.map(parseDbUrl) // first parses the data
+		.chain(fromNullable) // verifies if it returns a nullable value
+		.map(([_, user, password, db]) => `starting ${db}, ${user}, ${password}`) // creates a message string
 		.fold(
 			error => error,
 			data => data,
@@ -743,6 +797,8 @@ const app = () =>
 	});
 
 app();
+
+// The solution is bellow
 ```
 
 # Task monad
@@ -768,6 +824,9 @@ utilizando la utilidad de Task puedes refactorizar el codigo de la siguiente man
 const { Task } = require('./Types');
 const fs = require('fs');
 
+// When a Task Monad is created it allows you to pass a promise-like function as parameter
+// you can return a reject or response callback that will return a Right or Left functor and
+// change the flow of the program
 const readFile = (path, encoding) =>
 	Task((reject, response) =>
 		fs.readFileSync(path, encoding, (error, contents) =>
@@ -795,10 +854,11 @@ const app_ = () =>
 		});
 	});
 
+// HEre we started the app
 const app = () =>
-	readFile('config.json', 'utf-8')
-		.map(data => data.replace(/3/g, '6'))
-		.chain(data => writeFile('config1.json', data));
+	readFile('config.json', 'utf-8')// Pass the data to the read file function and returns a functor
+		.map(data => data.replace(/3/g, '6')) // replace the string
+		.chain(data => writeFile('config1.json', data)); // and after returns the reult of another functor in the writeFile function
 
 app().fork(console.error, () => console.log('sucess'));
 ```
