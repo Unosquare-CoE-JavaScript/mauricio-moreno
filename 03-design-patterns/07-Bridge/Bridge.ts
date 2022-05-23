@@ -18,6 +18,7 @@ interface Implementation {
  * hierarchies. It maintains a reference to an object of the Implementation
  * hierarchy and delegates all of the real work to this object.
  */
+// Abstractions ==============================================================
 class Abstraction {
 	protected implementation: Implementation;
 
@@ -45,6 +46,7 @@ class ExtendedAbstraction extends Abstraction {
  * Each Concrete Implementation corresponds to a specific platform and
  * implements the Implementation interface using that platform's API.
  */
+// Implementations  ============================================================
 class ConcreteImplementationA implements Implementation {
 	public operationImplementation(): string {
 		return `ConcreteImplementationA: Here\'s the result on the platform A`;
@@ -57,14 +59,13 @@ class ConcreteImplementationB implements Implementation {
 	}
 }
 
-// ClientCode
-
 /**
  * Except for the initialization phase, where an Abstraction object gets linked
  * with a specific Implementation object, the client code should only depend on
  * the Abstraction class. This way the client code can support any abstraction-
  * implementation combination.
  */
+// ClientCode ===============================================================
 function clientCode_7(abstraction: Abstraction) {
 	console.log(abstraction.operation());
 }

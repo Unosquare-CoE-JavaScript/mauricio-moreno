@@ -17,6 +17,7 @@ interface AbstractFactory {
  * that signatures of the Concrete Factory's methods return an abstract product,
  * while inside the method a concrete product is instantiated.
  */
+// Concrete factories =========================================================
 class ConcreteFactory1 implements AbstractFactory {
 	public createProductA(): AbstractProductA {
 		return new concreteProductA1();
@@ -43,6 +44,7 @@ class ConcreteFactory2 implements AbstractFactory {
  * Each distinct product of a product family should have a base interface. All
  * variants of the product must implement this interface.
  */
+// Products created ===========================================================
 interface AbstractProductA {
 	usefulFunctionA(): string;
 }
@@ -67,6 +69,7 @@ class concreteProductA2 implements AbstractProductA {
  * with each other, but proper interaction is possible only between products of
  * the same concrete variant.
  */
+// ===================
 interface AbstractProductB {
 	usefulFunctionB();
 	anotherUsefulFunction(collaborator: AbstractProductA): string;
@@ -102,7 +105,8 @@ class concreteProductB2 implements AbstractProductB {
  * types: AbstractFactory and AbstractProduct. This lets you pass any factory or
  * product subclass to the client code without breaking it.
  */
-function clientCode_3(factory: AbstractFactory) {
+// Clientcode ==================================================================
+function ClientCode_3(factory: AbstractFactory) {
 	const productA = factory.createProductA();
 	const productB = factory.createProductB();
 
@@ -111,7 +115,7 @@ function clientCode_3(factory: AbstractFactory) {
 }
 
 console.log('Client: Testing client code with the first factory type...');
-clientCode_3(new ConcreteFactory1());
+ClientCode_3(new ConcreteFactory1());
 
 console.log('');
 

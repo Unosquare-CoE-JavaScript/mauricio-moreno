@@ -1,3 +1,4 @@
+// This will be the compositeClass
 class GraphicObject {
 	get name() {
 		return this._name;
@@ -6,10 +7,11 @@ class GraphicObject {
 	constructor(name = 'Group ' + GraphicObject.count++) {
 		this._name = name;
 		this.color = undefined;
-		this.children = [];
+		this.children = []; // Here we store al subelements
 	}
 
 	// this only prints the figure
+	// This reaches all childrens and executes its operations
 	print(buffer, depth) {
 		buffer.push('*'.repeat(depth));
 		if (depth > 0) buffer.push(' ');
@@ -28,6 +30,7 @@ class GraphicObject {
 
 GraphicObject.count = 0;
 
+// Components ===========================================================
 class Circle extends GraphicObject {
 	constructor(color) {
 		super('Circle');
@@ -42,6 +45,7 @@ class Square extends GraphicObject {
 	}
 }
 
+// ClientCode =============================================================
 let drawing = new GraphicObject();
 drawing.children.push(new Square('Red'));
 drawing.children.push(new Circle('Yellow'));

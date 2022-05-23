@@ -1,0 +1,117 @@
+{
+	"editor.tokenColorCustomizations": {
+		"numbers": "#ff0000",
+		"comments": "",
+		"keywords": "#8d0ec4",
+		"functions": "#fbff01",
+		"strings": "#2093ff",
+		"variables": "#84f314",
+		"textMateRules": [
+			{
+				"scope": "string.quoted.double.html",
+				"settings": {
+					"foreground": "#f79934",
+					"fontStyle": "italic"
+				}
+			},
+			{
+				"scope": "support.class.component.js.jsx",
+				"settings": {
+					"foreground": "#f73434",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "variable.other.object.js",
+				"settings": {
+					"foreground": "#1ee98a",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "entity.other.attribute-name.class.css",
+				"settings": {
+					"foreground": "#1ee98a",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "text.html.derivative",
+				"settings": {
+					"foreground": "#aaa",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "meta.object-literal.key.js",
+				"settings": {
+					"foreground": "#3df7e4",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "string.quoted.double.html",
+				"settings": {
+					"foreground": "#4677ff",
+					"fontStyle": "bold"
+				}
+			},
+			{
+				"scope": "entity.name.tag.css.sass.symbol",
+				"settings": {
+					"foreground": "#5ded41",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "storage.type.function.arrow.js",
+				"settings": {
+					"foreground": "#f73d3d",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "source.elixir",
+				"settings": {
+					"foreground": "#3df7e4",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "source.haskell",
+				"settings": {
+					"foreground": "#3df7e4",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "variable.other.property.ts",
+				"settings": {
+					"foreground": "#3df7e4",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "variable.other.property.js",
+				"settings": {
+					"foreground": "#3df7e4",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "meta.symbol.clojure",
+				"settings": {
+					"foreground": "#3df765",
+					"fontStyle": ""
+				}
+			},
+			{
+				"scope": "entity.name.tag.css",
+				"settings": {
+					"foreground": "#eef73d",
+					"fontStyle": ""
+				}
+			}
+		]
+	}
+}

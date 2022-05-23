@@ -1,7 +1,9 @@
+// This is the base product interface =================================================
 class HotDrink {
 	consume() {}
 }
 
+// These are the products that will be created =========================================
 class Tea extends HotDrink {
 	consume() {
 		console.log('This tea is nice with lemon!');
@@ -14,11 +16,13 @@ class Coffee extends HotDrink {
 	}
 }
 
+// This is the abstract class that determines how we create the products
 class HotDrinkFactory {
 	// Abstract|
 	prepare(amount) {}
 }
 
+// Concrete Factories ============================================================
 class TeaFactory extends HotDrinkFactory {
 	prepare(amount) {
 		console.log(`Put in tea bag, boil water, pour ${amount}ml`);
@@ -29,10 +33,12 @@ class TeaFactory extends HotDrinkFactory {
 class CoffeeFactory extends HotDrinkFactory {
 	prepare(amount) {
 		console.log(`Grind some beans, boil water, pour ${amount}ml`);
-		return new Tea(); // Customize your factory creation logic
+		return new Coffee(); // Customize your factory creation logic
 	}
 }
 
+// Client Code ====================================================================
+// These are the possible products you can request
 const AvailableDrink = Object.freeze({
 	coffee: CoffeeFactory,
 	tea: TeaFactory,

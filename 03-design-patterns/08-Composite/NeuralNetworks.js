@@ -91,6 +91,7 @@ class NeuronLayer extends aggregation(Array, Connectable) {
 let neuron1 = new Neuron();
 let neuron2 = new Neuron();
 let layer1 = new NeuronLayer(3);
+v;
 let layer2 = new NeuronLayer(4);
 
 neuron1.connectTo(neuron2);

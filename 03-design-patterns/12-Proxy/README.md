@@ -70,6 +70,10 @@ of a service.
 >   free the
 >   underlying system resources.
 
+# Real world Analogy
+
+A credit card is a proxy for a bank account, which is a proxy for a bundle of cash. Both implement the same interface: they can be used for making a payment. A consumer feels great because there’s no need to carry loads of cash around. A shop owner is also happy since the income from a transaction gets added electronically to the shop’s bank account without the risk of losing the deposit or getting robbed on the way to the bank.
+
 # How to implement
 
 This example illustrates the structure of the Proxy design pattern and focuses on the

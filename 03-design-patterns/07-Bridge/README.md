@@ -41,7 +41,8 @@ controlling entity and several different platforms that it relies on.
 
 # How to Implement
 
-This example illustrates the structure of the Bridge design pattern and focuses on the following questions:
+This example illustrates the structure of the Bridge design pattern and focuses on the
+following questions:
 
 - What classes does it consist of?
 - What roles do these classes play?
