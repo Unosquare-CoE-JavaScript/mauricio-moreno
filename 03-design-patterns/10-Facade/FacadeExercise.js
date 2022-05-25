@@ -69,13 +69,13 @@ class MagicSquareGenerator {
 		const splitter = new Splitter();
 		const verifier = new Verifier();
 
-		let square;
+		let response;
 		do {
-			square = [];
-			for (let i = 0; i < size; ++i) square.push(generator.generate(size));
-		} while (!verifier.verify(splitter.split(square)));
+			response = [];
+			for (let i = 0; i < size; ++i) response.push(generator.generate(size));
+		} while (!verifier.verify(splitter.split(response)));
 
-		return square;
+		return response;
 	}
 }
 

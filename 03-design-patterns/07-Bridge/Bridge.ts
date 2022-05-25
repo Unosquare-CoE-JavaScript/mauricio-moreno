@@ -5,6 +5,7 @@
  * provides only primitive operations, while the Abstraction defines higher-
  * level operations based on those primitives.
  */
+// Interfaces ==================================================================
 interface Implementation {
 	operationImplementation(): string;
 	/*
@@ -26,6 +27,8 @@ class Abstraction {
 		this.implementation = implementation;
 	}
 
+	// This will execute the code in the same way independently of the concrete implementations
+	// It's like a recipe
 	public operation(): string {
 		const result = this.implementation.operationImplementation();
 		return `Abstraction: Base operation with: \n${result}`;

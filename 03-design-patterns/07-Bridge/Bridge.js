@@ -1,3 +1,5 @@
+// This as the Bridge.ts example will execute the same methods of the
+// Class passed indepently of the concrete implemenattions
 class VectorRenderer {
 	renderCircle(radius) {
 		console.log(`Drawing a circle of radius ${radius}`);
@@ -9,12 +11,16 @@ class RasterRenderer {
 	}
 }
 
+// Interface
 class Shape {
 	constructor(renderer) {
 		this.renderer = renderer;
 	}
 }
 
+// This would have the same method and execute it no matters the type of
+// renderer
+// Concrete Implementations ============================================
 class Circle extends Shape {
 	constructor(renderer, radius) {
 		super(renderer);
@@ -36,8 +42,7 @@ class Square {
 	}
 }
 
-// VC VS RC RS ...
-// Renderer - Raster, Vector ...
+// Client Code =======================================================
 const raster = new RasterRenderer();
 const vector = new VectorRenderer();
 

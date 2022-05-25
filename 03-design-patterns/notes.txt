@@ -1,3 +1,0 @@
-principe of least surprise
-	when someone use your api they never should be surprised with a behavior
-	your api need to be predictable

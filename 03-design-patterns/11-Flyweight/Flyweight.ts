@@ -1,3 +1,4 @@
+// FlyWeight implementation ======================================================
 class Flyweight {
 	private sharedState: any;
 
@@ -12,6 +13,7 @@ class Flyweight {
 	}
 }
 
+// FlyWeight Factory ============================================================
 class FlyweightFactory {
 	private flyweights: { [key: string]: Flyweight } = <any>{};
 
@@ -45,6 +47,7 @@ class FlyweightFactory {
 	}
 }
 
+// ClientCode =================================================================
 const factory = new FlyweightFactory([
 	['Chevrolet', 'Camaro2018', 'pink'],
 	['Mercedes Benz', 'C300', 'black'],

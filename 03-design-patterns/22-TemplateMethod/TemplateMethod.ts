@@ -1,4 +1,5 @@
 // This has the default methods that we can use, but also needs some required operations
+// Abstract class ==========================================================
 abstract class AbstractClass {
 	public templateMethod(): void {
 		this.requiredOperation1();
@@ -32,6 +33,7 @@ abstract class AbstractClass {
 	protected hook2(): void {}
 }
 
+// IMplementations ==================================================================
 class ConcreteClass1 extends AbstractClass {
 	protected requiredOperation1(): void {
 		console.log('ConcreteClass1 says: Implemented Operation1');

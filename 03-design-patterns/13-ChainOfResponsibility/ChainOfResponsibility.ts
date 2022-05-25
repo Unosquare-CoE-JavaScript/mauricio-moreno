@@ -22,7 +22,7 @@ abstract class AbstractHandler implements Handler {
 class MonkeyHandler extends AbstractHandler {
 	public handle(request: string): string {
 		if (request === 'Banana') return `Monkey: I'll eat the ${request}`;
-		else return super.handle(request);
+		else return super.handle(request);// This will iterate trough the chain
 	}
 }
 
