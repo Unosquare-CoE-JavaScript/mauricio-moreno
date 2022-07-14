@@ -66,7 +66,7 @@ class Leaf extends Component {
  */
 // Composite ==================================================================
 class Composite extends Component {
-	protected children: Component[] = [];
+	protected children: Array<Component> = [];
 
 	public add(component: Component): void {
 		this.children.push(component);
@@ -97,9 +97,8 @@ class Composite extends Component {
 	}
 }
 
-function clientCode(component: Component) {
+export const clientCode = (component: Component): void =>
 	console.log(`RESULT: ${component.operation()}`);
-}
 
 const simple = new Leaf();
 console.group("Client: I've got a simple component:");
